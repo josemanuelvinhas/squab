@@ -1,0 +1,26 @@
+{% block content %}
+<nav class="container navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-brand">Menú</div>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="/portada">Portada</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/perfil">Mi perfil</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/buscar">Buscar</a>
+            </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <a href="{{ url_usr }}" class="btn btn-outline-primary m-2">Cerrar Sesión</a>
+        </div>
+    </div>
+</nav>
+{% endblock %}

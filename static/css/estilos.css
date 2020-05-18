@@ -1,0 +1,27 @@
+header {
+    color: white;
+    background-color: #4682B4;
+}
+
+footer{
+    background-color: #4682B4;
+    color: white;
+}
+
+.main {
+    background-color: white;
+}
+
+
+.body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #e9ebee;
+}
+
+.logo{
+    width: 70px;
+}
+
+.logoGrande{
+    color: #4682B4;
+}

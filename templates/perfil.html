@@ -1,0 +1,82 @@
+{% extends "esqueleto.html" %}
+
+{% block content %}
+
+{% include "menu.html" %}
+
+<div class="container main">
+    <div class="row pb-5 pt-5 mb-5 p-3">
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 order-xl-first order-lg-first order-md-last order-sm-last order-xs-last order-last">
+            <h1 class="text-center">Mi perfil</h1>
+            <h5 class="text-center">Mis Squabs</h5>
+            {% for sq in lista_squabs %}
+            <div class="card m-2 mb-5">
+                <div class="card-header">
+                    <div class="row justify-content-between pl-3">
+                        <a class="text-dark" href="/buscar?user={{ sq.login }}">@{{ sq.login }}</a>
+                        <div>{{sq.hora.strftime("%H:%M - %d/%m/%Y")}}</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{sq.texto}}
+                    <div class="text-primary">
+                    {% for et in sq.etiquetas %}
+                    <a href="/buscar?etiqueta={{ et.etiqueta }}">#{{ et.etiqueta }}</a>
+                    {% endfor %}
+                    </div>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="row justify-content-between align-items-center mr-2 ml-2">
+                        <p class="m-0">{{ sq.nLikes }} ♡ </p>
+                        <a href="/eliminar?id={{ sq.url_id }}&ruta=/perfil" class="btn btn-outline-danger">Eliminar</a>
+                    </div>
+                    {% if sq.nLikes > 0 %}
+                    <div class="row mr-2 ml-2 mt-3">
+                        <p>Le ha gustado a {% for gus in sq.lista_login_likes %} <a class="text-dark" href="/buscar?user={{ gus }}">@{{ gus }}</a>{% endfor %}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 order-xl-last order-lg-last order-md-first order-sm-first order-first mb-3">
+
+            {% include "usuario.html" %}
+
+            <div class="container border border-primary mt-5">
+                <div class="row m-2 justify-content-center"><h3>Publicar Squab</h3></div>
+                <form id="formNuevoSquad"
+                      action="/publicar"
+                      method="post"
+                      class="mb-3"
+                      onsubmit="return comprobarFormSquab() && calcularEtiquetas()">
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje del Squab</label>
+                        <input type="text" class="form-control" id="mensaje" name="mensaje"
+                               aria-describedby="mensajeHelp" placeholder="Máximo 500 caracteres" maxlength="500"
+                               onblur="comprobarMensaje()">
+                        <small id="mensajeHelp" class="form-text text-muted">Nunca de nadie mal digas, ni mal
+                            escribas</small>
+                        <div id="cajaLineas"></div>
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <input type="button" class="btn btn-outline-primary" value="Añadir Etiqueta"
+                               onclick="nuevaEtiqueta()">
+                        <input type="button" class="btn btn-outline-primary" value="Quitar Etiqueta"
+                               onclick="quitarEtiqueta()">
+                    </div>
+                    <input type="hidden" id="ruta" name="ruta" value="/perfil">
+                    <div class="row justify-content-end mr-2">
+                        <button type="submit" class="btn btn-primary">Publicar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% include "modal.html" %}
+
+{% endblock %}
